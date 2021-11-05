@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Form name="form.tmp" build="4.00.03" sqlDbName="mydatabase" spacing="normal" text="Autenticazione" width="59" height="16">
+  <LStr text="Autenticazione"/>
+  <Grid name="mydatabase1" width="59" height="16">
+    <Label name="collegamento_utente_label1" width="8" text="Utente" justify="left" posY="4" posX="19" gridWidth="8">
+      <LStr text="Utente"/>
+    </Label>
+    <FormField name="collegamento.utente" colName="utente" sqlType="VARCHAR(30)" fieldId="0" sqlTabName="collegamento" tabIndex="1">
+      <Edit width="30" scroll="1" posY="4" posX="28" gridWidth="30"/>
+    </FormField>
+    <Label name="collegamento_password_label1" width="8" text="Password" justify="left" posY="5" posX="19" gridWidth="8">
+      <LStr text="Password"/>
+    </Label>
+    <FormField name="collegamento.password" colName="password" sqlType="VARCHAR(30)" fieldId="1" sqlTabName="collegamento" tabIndex="2">
+      <Edit width="30" scroll="1" posY="5" posX="28" gridWidth="30"/>
+    </FormField>
+    <Label name="collegamento_server_label1" width="8" text="Server" justify="left" posY="6" posX="19" gridWidth="8">
+      <LStr text="Server"/>
+    </Label>
+    <FormField name="collegamento.server" colName="server" sqlType="VARCHAR(30)" fieldId="2" sqlTabName="collegamento" tabIndex="3">
+      <Edit width="30" scroll="1" posY="6" posX="28" gridWidth="30"/>
+    </FormField>
+    <Label name="collegamento_porta_label1" width="8" text="Porta" justify="left" posY="7" posX="19" gridWidth="8">
+      <LStr text="Porta"/>
+    </Label>
+    <FormField name="collegamento.porta" colName="porta" sqlType="INTEGER" fieldId="3" sqlTabName="collegamento" tabIndex="4">
+      <Edit width="6" scroll="1" posY="7" posX="28" gridWidth="6"/>
+    </FormField>
+    <Label name="collegamento_database_label1" width="8" text="Database" justify="left" posY="8" posX="19" gridWidth="8">
+      <LStr text="Database"/>
+    </Label>
+    <FormField name="collegamento.database" colName="database" sqlType="VARCHAR(30)" fieldId="4" sqlTabName="collegamento" tabIndex="5">
+      <Edit width="30" scroll="1" posY="8" posX="28" gridWidth="30"/>
+    </FormField>
+    <Label name="collegamento_modulo_label1" width="8" text="Modulo" justify="left" posY="9" posX="19" gridWidth="8">
+      <LStr text="Modulo"/>
+    </Label>
+    <FormField name="collegamento.modulo" colName="modulo" sqlType="VARCHAR(30)" fieldId="5" sqlTabName="collegamento" tabIndex="6">
+      <Edit width="30" scroll="1" posY="9" posX="28" gridWidth="30"/>
+    </FormField>
+  </Grid>
+  <RecordView tabName="collegamento">
+    <Link colName="utente" fieldIdRef="0"/>
+    <Link colName="password" fieldIdRef="1"/>
+    <Link colName="server" fieldIdRef="2"/>
+    <Link colName="porta" fieldIdRef="3"/>
+    <Link colName="database" fieldIdRef="4"/>
+    <Link colName="modulo" fieldIdRef="5"/>
+  </RecordView>
+  <RecordView tabName="record1">
+    <Link colName="utente" fieldIdRef="0"/>
+    <Link colName="password" fieldIdRef="1"/>
+    <Link colName="server" fieldIdRef="2"/>
+    <Link colName="porta" fieldIdRef="3"/>
+    <Link colName="database" fieldIdRef="4"/>
+    <Link colName="modulo" fieldIdRef="5"/>
+  </RecordView>
+</Form>

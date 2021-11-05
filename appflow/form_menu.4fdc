@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm fileVersion="40003" gstVersion="40003" name="managedform" uid="{c0843022-fe02-4412-a556-e4ba2835c55b}">
+  <AGSettings>
+    <DynamicProperties version="4">
+      <DynamicPropertyGroup collapsed="false" description="Put user code to customize the application" label="Dialog Events" name="DialogEvents" properties=""/>
+    </DynamicProperties>
+  </AGSettings>
+  <Form fourSTFile="../../../Progetto1/appflow/default.4st" gridHeight="25" gridWidth="47" name="form" spacing="normal" text="MENU">
+    <Grid gridHeight="25" gridWidth="47" name="grid1" posX="0" posY="0">
+      <Group gridHeight="7" gridWidth="41" name="group2" posX="1" posY="0" text="">
+        <Image autoScale="true" gridHeight="5" gridWidth="39" image="informaticanove.jpg" name="informaticanove" posX="1" posY="1" sizePolicy="initial" stretch="both" style="immagine" tag="" unitHeight="lines" unitWidth="pixels"/>
+      </Group>
+      <Group gridHeight="13" gridWidth="21" name="group1" posX="12" posY="8" style="group1" text="">
+        <Button fontPitch="fixed" gridHeight="2" gridWidth="16" name="conferimenti" posX="2" posY="1" style="bottoni" tabIndex="-1" text="Conferimenti"/>
+        <Button fontPitch="fixed" gridHeight="2" gridWidth="16" name="btSitContratti" posX="2" posY="4" style="bottoni" tabIndex="-1" text="Situazione Contratti"/>
+        <Button fontPitch="fixed" gridHeight="2" gridWidth="16" name="btSitMagazzino" posX="2" posY="7" style="bottoni" tabIndex="-1" text="Situazione Magazzino"/>
+        <Button fontPitch="fixed" gridHeight="2" gridWidth="16" name="btUscita" posX="2" posY="10" style="bottoni" tabIndex="-1" text="Uscita"/>
+      </Group>
+    </Grid>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAg==]]>
+  </DiagramLayout>
+</ManagedForm>

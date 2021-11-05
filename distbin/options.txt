@@ -1,0 +1,17 @@
+build
+-bpn "com.company.myapp"
+-bn "Login"
+-bvc 1
+-bvn "1"
+-bgp "C:/Luca/Infonove/Progetto1/distbin/app"
+-bgpm "MyApp_Android.xcf"
+-bo "C:\Luca\Infonove\Progetto1\distbin"
+-ban "MyApp_Android"
+-bq
+-bc "#00aaff,#00aaff,#01c8ff,#EBEBEB,#000000,#ffffff,#00aaff"
+-bim "C:\Luca\Infonove\Progetto1\..\Users\LucianoB\Pictures\Saved Pictures\login.png"
+-ba "android.permission.ACCESS_NETWORK_STATE,android.permission.ACCESS_WIFI_STATE,android.permission.CHANGE_NETWORK_STATE,com.android.launcher.permission.INSTALL_SHORTCUT,android.permission.INTERNET,android.permission.MOUNT_FORMAT_FILESYSTEMS,android.permission.READ_LOGS"
+-bja "androiduserkey"
+-bjks "C:\Users\LucianoB\.android\debug.keystore"
+-bjs "android"
+-bjk "android"

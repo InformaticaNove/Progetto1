@@ -1,0 +1,353 @@
+{<CODEFILE Path="mydatabase.code" Hash="1B2M2Y8AsgTpgAmY7PhCfg==" />}
+#+ DB schema - Constraints Management (mydatabase)
+
+--------------------------------------------------------------------------------
+--This code is generated with the template dbapp5.0
+--Warning: Enter your changes within a <BLOCK> or <POINT> section, otherwise they will be lost.
+{<POINT Name="user.comments">} {</POINT>}
+
+--------------------------------------------------------------------------------
+--Importing modules
+IMPORT FGL libdbappCore
+
+IMPORT FGL mydatabase
+IMPORT FGL mydatabase_events
+{<POINT Name="import">} {</POINT>}
+
+-- Database schema
+SCHEMA mydatabase
+
+--------------------------------------------------------------------------------
+--Functions
+
+{<BLOCK Name="fct.seqreg_checkTableConstraints">}
+#+ Check constraints on the "seqreg" table
+#+
+#+ @param p_forUpdate TRUE: for 'update' SQL operation, FALSE for 'insert' SQL operation
+#+ @param p_data - a row data LIKE seqreg.*
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_seqreg_checkTableConstraints(p_forUpdate, p_data)
+    DEFINE p_forUpdate BOOLEAN
+    DEFINE p_data RECORD LIKE seqreg.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE l_errNo INTEGER
+    DEFINE l_errMsg STRING
+    {<POINT Name="fct.seqreg_checkTableConstraints.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    {<POINT Name="fct.seqreg_checkTableConstraints.init">} {</POINT>}
+
+    CALL mydatabase_dbxconstraints_seqreg_sr_name_checkColumnConstraints(p_data.sr_name) RETURNING l_errNo, l_errMsg
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+    CALL mydatabase_dbxconstraints_seqreg_sr_last_checkColumnConstraints(p_data.sr_last) RETURNING l_errNo, l_errMsg
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    CALL mydatabase_dbxconstraints_seqreg_pk_seqreg_checkUniqueConstraint(p_forUpdate, p_data.sr_name) RETURNING l_errNo, l_errMsg
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    IF mydatabase_events.m_DbxDataEvent_seqreg_CheckTableConstraints IS NOT NULL THEN
+        CALL mydatabase_events.m_DbxDataEvent_seqreg_CheckTableConstraints(p_forUpdate, p_data.*)
+            RETURNING l_errNo, l_errMsg
+    END IF
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    {<POINT Name="fct.seqreg_checkTableConstraints.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_checkTableConstraints
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_checkUniqueConstraint">}
+#+ Check the primary key uniqueness constraint on the "seqreg"
+#+
+#+ @param p_forUpdate TRUE: for 'update' SQL operation, FALSE for 'insert' SQL operation
+#+ @param p_key - Primary Key
+#+
+#+ @returnType INTEGER, STRING, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_seqreg_pk_seqreg_checkUniqueConstraint(p_forUpdate, p_key)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_forUpdate BOOLEAN
+    DEFINE p_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE l_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE l_where STRING
+    DEFINE l_sqlQuery STRING
+    DEFINE l_count INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_checkUniqueConstraint.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    LET l_where = "WHERE seqreg.sr_name = ? "
+    LET l_sqlQuery = "SELECT COUNT(*), sr_name FROM seqreg ", l_where, " GROUP BY sr_name"
+    {<POINT Name="fct.seqreg_pk_seqreg_checkUniqueConstraint.init">} {</POINT>}
+    TRY
+        PREPARE cur_seqreg_pk_seqreg_checkUniqueConstraint FROM l_sqlQuery
+        EXECUTE cur_seqreg_pk_seqreg_checkUniqueConstraint USING p_key.* INTO l_count, l_key.*
+        FREE cur_seqreg_pk_seqreg_checkUniqueConstraint
+        IF (NOT p_forUpdate AND l_count > 0) OR (p_forUpdate AND l_count > 0 AND p_key.* != l_key.*) THEN
+            CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- sr_name: " || ERROR_BAM_00002) RETURNING errNo, errMsg
+        END IF
+    CATCH
+        LET errNo = ERROR_FAILURE
+    END TRY
+    {<POINT Name="fct.seqreg_pk_seqreg_checkUniqueConstraint.user">} {</POINT>}
+
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_checkUniqueConstraint
+
+{<BLOCK Name="fct.seqreg_sr_name_checkColumnConstraints">}
+#+ Check constraints on the "seqreg.sr_name" column
+#+
+#+ @param p_sr_name - VARCHAR(30) - sr_name
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_seqreg_sr_name_checkColumnConstraints(p_sr_name)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_sr_name LIKE seqreg.sr_name
+    {<POINT Name="fct.seqreg_sr_name_checkColumnConstraints.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    {<POINT Name="fct.seqreg_sr_name_checkColumnConstraints.init">} {</POINT>}
+    IF p_sr_name IS NULL THEN
+        CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- sr_name: " || ERROR_BAM_00001) RETURNING errNo, errMsg
+    END IF
+    {<POINT Name="fct.seqreg_sr_name_checkColumnConstraints.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_sr_name_checkColumnConstraints
+
+{<BLOCK Name="fct.seqreg_sr_last_checkColumnConstraints">}
+#+ Check constraints on the "seqreg.sr_last" column
+#+
+#+ @param p_sr_last - INTEGER - sr_last
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_seqreg_sr_last_checkColumnConstraints(p_sr_last)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_sr_last LIKE seqreg.sr_last
+    {<POINT Name="fct.seqreg_sr_last_checkColumnConstraints.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    {<POINT Name="fct.seqreg_sr_last_checkColumnConstraints.init">} {</POINT>}
+    IF p_sr_last IS NULL THEN
+        CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- sr_last: " || ERROR_BAM_00001) RETURNING errNo, errMsg
+    END IF
+    {<POINT Name="fct.seqreg_sr_last_checkColumnConstraints.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_sr_last_checkColumnConstraints
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_checkFKConstraint">}
+#+ Check the Foreign Key existence constraint on the "seqreg"
+#+
+#+ @param p_data - Primary Key
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_seqreg_pk_seqreg_checkFKConstraint(p_data)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_data
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE l_where STRING
+    DEFINE l_sqlQuery STRING
+    DEFINE l_count INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_checkFKConstraint.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    IF NOT (p_data.seqreg_sr_name IS NULL) THEN
+        LET l_where = "WHERE seqreg.sr_name = ? "
+        LET l_sqlQuery = "SELECT COUNT(*) FROM seqreg ", l_where
+        {<POINT Name="fct.seqreg_pk_seqreg_checkFKConstraint.init">} {</POINT>}
+        TRY
+            PREPARE cur_seqreg_pk_seqreg_checkFKConstraint FROM l_sqlQuery
+            EXECUTE cur_seqreg_pk_seqreg_checkFKConstraint USING p_data.* INTO l_count
+            FREE cur_seqreg_pk_seqreg_checkFKConstraint
+            IF (l_count == 0) THEN
+                CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- sr_name: " || ERROR_BAM_00004) RETURNING errNo, errMsg
+            END IF
+        CATCH
+            LET errNo = ERROR_FAILURE
+        END TRY
+    END IF
+    {<POINT Name="fct.seqreg_pk_seqreg_checkFKConstraint.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_checkFKConstraint
+
+{<BLOCK Name="fct.collegamento_checkTableConstraints">}
+#+ Check constraints on the "collegamento" table
+#+
+#+ @param p_forUpdate TRUE: for 'update' SQL operation, FALSE for 'insert' SQL operation
+#+ @param p_data - a row data LIKE collegamento.*
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_collegamento_checkTableConstraints(p_forUpdate, p_data)
+    DEFINE p_forUpdate BOOLEAN
+    DEFINE p_data RECORD LIKE collegamento.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE l_errNo INTEGER
+    DEFINE l_errMsg STRING
+    {<POINT Name="fct.collegamento_checkTableConstraints.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    {<POINT Name="fct.collegamento_checkTableConstraints.init">} {</POINT>}
+
+    CALL mydatabase_dbxconstraints_collegamento_utente_checkColumnConstraints(p_data.utente) RETURNING l_errNo, l_errMsg
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    CALL mydatabase_dbxconstraints_collegamento_PK_collegamento_1_checkUniqueConstraint(p_forUpdate, p_data.utente) RETURNING l_errNo, l_errMsg
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    IF mydatabase_events.m_DbxDataEvent_collegamento_CheckTableConstraints IS NOT NULL THEN
+        CALL mydatabase_events.m_DbxDataEvent_collegamento_CheckTableConstraints(p_forUpdate, p_data.*)
+            RETURNING l_errNo, l_errMsg
+    END IF
+    CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, l_errNo, l_errMsg) RETURNING errNo, errMsg
+
+    {<POINT Name="fct.collegamento_checkTableConstraints.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.collegamento_checkTableConstraints
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_checkUniqueConstraint">}
+#+ Check the primary key uniqueness constraint on the "collegamento"
+#+
+#+ @param p_forUpdate TRUE: for 'update' SQL operation, FALSE for 'insert' SQL operation
+#+ @param p_key - Primary Key
+#+
+#+ @returnType INTEGER, STRING, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_collegamento_PK_collegamento_1_checkUniqueConstraint(p_forUpdate, p_key)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_forUpdate BOOLEAN
+    DEFINE p_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE l_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE l_where STRING
+    DEFINE l_where_utente STRING
+    DEFINE l_sqlQuery STRING
+    DEFINE l_count INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkUniqueConstraint.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    LET l_where_utente = IIF(p_key.collegamento_utente IS NULL, " OR collegamento.utente IS NULL", "")
+    LET l_where = "WHERE ( collegamento.utente = ?", l_where_utente, " ) "
+    LET l_sqlQuery = "SELECT COUNT(*), utente FROM collegamento ", l_where, " GROUP BY utente"
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkUniqueConstraint.init">} {</POINT>}
+    TRY
+        PREPARE cur_collegamento_PK_collegamento_1_checkUniqueConstraint FROM l_sqlQuery
+        EXECUTE cur_collegamento_PK_collegamento_1_checkUniqueConstraint USING p_key.* INTO l_count, l_key.*
+        FREE cur_collegamento_PK_collegamento_1_checkUniqueConstraint
+        IF (NOT p_forUpdate AND l_count > 0) OR (p_forUpdate AND l_count > 0 AND p_key.* != l_key.*) THEN
+            CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- utente: " || ERROR_BAM_00002) RETURNING errNo, errMsg
+        END IF
+    CATCH
+        LET errNo = ERROR_FAILURE
+    END TRY
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkUniqueConstraint.user">} {</POINT>}
+
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_checkUniqueConstraint
+
+{<BLOCK Name="fct.collegamento_utente_checkColumnConstraints">}
+#+ Check constraints on the "collegamento.utente" column
+#+
+#+ @param p_utente - VARCHAR(30) - utente
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_collegamento_utente_checkColumnConstraints(p_utente)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_utente LIKE collegamento.utente
+    {<POINT Name="fct.collegamento_utente_checkColumnConstraints.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    {<POINT Name="fct.collegamento_utente_checkColumnConstraints.init">} {</POINT>}
+    IF p_utente IS NULL THEN
+        CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- utente: " || ERROR_BAM_00001) RETURNING errNo, errMsg
+    END IF
+    {<POINT Name="fct.collegamento_utente_checkColumnConstraints.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.collegamento_utente_checkColumnConstraints
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_checkFKConstraint">}
+#+ Check the Foreign Key existence constraint on the "collegamento"
+#+
+#+ @param p_data - Primary Key
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxconstraints_collegamento_PK_collegamento_1_checkFKConstraint(p_data)
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    DEFINE p_data
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE l_where STRING
+    DEFINE l_where_utente STRING
+    DEFINE l_sqlQuery STRING
+    DEFINE l_count INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkFKConstraint.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    INITIALIZE errMsg TO NULL
+    IF NOT (p_data.collegamento_utente IS NULL) THEN
+        LET l_where_utente = IIF(p_data.collegamento_utente IS NULL, " OR collegamento.utente IS NULL", "")
+        LET l_where = "WHERE ( collegamento.utente = ?", l_where_utente, " ) "
+        LET l_sqlQuery = "SELECT COUNT(*) FROM collegamento ", l_where
+        {<POINT Name="fct.collegamento_PK_collegamento_1_checkFKConstraint.init">} {</POINT>}
+        TRY
+            PREPARE cur_collegamento_PK_collegamento_1_checkFKConstraint FROM l_sqlQuery
+            EXECUTE cur_collegamento_PK_collegamento_1_checkFKConstraint USING p_data.* INTO l_count
+            FREE cur_collegamento_PK_collegamento_1_checkFKConstraint
+            IF (l_count == 0) THEN
+                CALL libdbapp_utilBuildErrorNoAndErrorMsg(errNo, errMsg, ERROR_FAILURE, "\n- utente: " || ERROR_BAM_00004) RETURNING errNo, errMsg
+            END IF
+        CATCH
+            LET errNo = ERROR_FAILURE
+        END TRY
+    END IF
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkFKConstraint.user">} {</POINT>}
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_checkFKConstraint
+
+--------------------------------------------------------------------------------
+--Add user functions
+{<POINT Name="user.functions">} {</POINT>}

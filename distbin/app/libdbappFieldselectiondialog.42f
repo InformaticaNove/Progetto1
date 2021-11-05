@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Form name="libdbappFieldselectiondialog.tmp" build="4.00.03" text="Printable Fields Selection" width="94" height="22">
+  <ActionDefaultList>
+    <ActionDefault name="accept" image=""/>
+    <ActionDefault name="cancel" image=""/>
+  </ActionDefaultList>
+  <LStr text="Printable Fields Selection"/>
+  <Grid name="grid1" width="94" height="22">
+    <Label name="label2" width="91" text="Use drag &amp; drop to select the fields to print " posY="0" posX="2" gridWidth="91">
+      <LStr text="Use drag &amp; drop to select the fields to print "/>
+    </Label>
+    <Table pageSize="18" name="table2" unsortableColumns="1" unmovableColumns="1" unhidableColumns="1" width="44" posY="2" posX="1" gridWidth="44" gridHeight="19" tabName="scr_left_content">
+      <TableColumn name="formonly.leftfieldname" colName="leftfieldname" sqlType="VARCHAR" fieldId="0" sqlTabName="formonly" tabIndex="1" text="Fields Not Printed">
+        <Edit width="42" scroll="1"/>
+        <LStr text="Fields Not Printed"/>
+      </TableColumn>
+    </Table>
+    <Table pageSize="18" name="table1" unmovableColumns="1" unhidableColumns="1" width="44" posY="2" posX="49" gridWidth="44" gridHeight="19" tabName="scr_right_content">
+      <TableColumn name="formonly.rightfieldname" colName="rightfieldname" sqlType="VARCHAR" fieldId="1" sqlTabName="formonly" tabIndex="2" text="Fields Contained in Report">
+        <Edit width="42" scroll="1"/>
+        <LStr text="Fields Contained in Report"/>
+      </TableColumn>
+    </Table>
+  </Grid>
+  <RecordView tabName="formonly">
+    <Link colName="leftfieldname" fieldIdRef="0"/>
+    <Link colName="rightfieldname" fieldIdRef="1"/>
+  </RecordView>
+</Form>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Package description="Android Package" distDir="C:\Luca\Infonove\Progetto1\distbin" name="MyApp_Android" rootDir="C:\Luca\Infonove\Progetto1\bin" version="1.0">
+  <DynamicProperties>
+    <DynamicProperty name="packageId" value="com.company.myapp"/>
+    <DynamicProperty name="packageLabel" value="Login"/>
+    <DynamicProperty name="packageVersion" value="1"/>
+    <DynamicProperty name="mainModule" value="Main"/>
+    <DynamicProperty name="packageVersionName" value="1"/>
+    <DynamicProperty name="resources" value=""/>
+    <DynamicProperty name="launchScreen" value=""/>
+    <DynamicProperty name="launchScreen1136x640" value=""/>
+    <DynamicProperty name="launchScreen750x1334" value=""/>
+    <DynamicProperty name="launchScreen1334x750" value=""/>
+    <DynamicProperty name="launchScreen1242x2208" value=""/>
+    <DynamicProperty name="launchScreen2208x1242" value=""/>
+    <DynamicProperty name="launchScreen1125x2436" value=""/>
+    <DynamicProperty name="launchScreen2436x1125" value=""/>
+    <DynamicProperty name="launchScreen768x1024" value=""/>
+    <DynamicProperty name="launchScreen1024x768" value=""/>
+    <DynamicProperty name="launchScreen1536x2048" value=""/>
+    <DynamicProperty name="launchScreen2048x1536" value=""/>
+    <DynamicProperty name="launchScreen2224x1668" value=""/>
+    <DynamicProperty name="launchScreen1668x2224" value=""/>
+    <DynamicProperty name="launchScreen2048x2732" value=""/>
+    <DynamicProperty name="launchScreen2732x2048" value=""/>
+    <DynamicProperty name="launchScreenXib" value=""/>
+    <DynamicProperty name="icon29x29" value=""/>
+    <DynamicProperty name="icon40x40" value=""/>
+    <DynamicProperty name="icon58x58" value=""/>
+    <DynamicProperty name="icon60x60" value=""/>
+    <DynamicProperty name="icon76x76" value=""/>
+    <DynamicProperty name="icon80x80" value=""/>
+    <DynamicProperty name="icon87x87" value=""/>
+    <DynamicProperty name="icon120x120" value=""/>
+    <DynamicProperty name="icon152x152" value=""/>
+    <DynamicProperty name="icon167x167" value=""/>
+    <DynamicProperty name="icon180x180" value=""/>
+    <DynamicProperty name="icon1024x1024" value=""/>
+    <DynamicProperty name="gma-primary-color" value="#00aaff"/>
+    <DynamicProperty name="gma-primary-dark-color" value="#00aaff"/>
+    <DynamicProperty name="gma-accent-color" value="#01c8ff"/>
+    <DynamicProperty name="gma-actionbar-color" value="#EBEBEB"/>
+    <DynamicProperty name="gma-primaryText-color" value="#000000"/>
+    <DynamicProperty name="gma-windowBackground-color" value="#ffffff"/>
+    <DynamicProperty name="gma-navigationBarBackground-color" value="#00aaff"/>
+    <DynamicProperty name="icon-ldpi" value="C:\Luca\Infonove\Progetto1\..\Users\LucianoB\Pictures\Saved Pictures\login.png"/>
+    <DynamicProperty name="icon-mdpi" value="C:\Luca\Infonove\Progetto1\..\Users\LucianoB\Pictures\Saved Pictures\login.png"/>
+    <DynamicProperty name="icon-hdpi" value=""/>
+    <DynamicProperty name="icon-xhdpi" value=""/>
+    <DynamicProperty name="icon-xxhdpi" value=""/>
+    <DynamicProperty name="status-icon-mdpi" value=""/>
+    <DynamicProperty name="status-icon-hdpi" value=""/>
+    <DynamicProperty name="status-icon-xhdpi" value=""/>
+    <DynamicProperty name="permissions" value="ACCESS_NETWORK_STATE||ACCESS_WIFI_STATE||CHANGE_NETWORK_STATE||INSTALL_SHORTCUT||INTERNET||MOUNT_FORMAT_FILESYSTEMS||READ_LOGS"/>
+    <DynamicProperty name="required" value="wifi"/>
+    <DynamicProperty name="gma-cordova" value=""/>
+    <DynamicProperty name="gmi-cordova" value=""/>
+  </DynamicProperties>
+  <Directories>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="Test.42r *.4pdb" include="*.42?" name="Binaries" recursive="false" source="C:\Luca\Infonove\Progetto1\bin">
+      <File path="C:\Luca\Infonove\Progetto1\bin\form.42f"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_common.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_events.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_menu.42f"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_menu.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_menu_common.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_menu_custom.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_menu_events.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_ui.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_uidata.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_uidialog.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\form_uidialogdata.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\Main.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\Main_events.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\Main_prg.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase_common.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase_dbxconstraints.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase_dbxdata.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase_events.42m"/>
+      <File path="C:\Luca\Infonove\Progetto1\bin\mydatabase_sqt_x.42m"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="fglprofile" name="Config" recursive="false" source="C:\Luca\Infonove\Progetto1\config">
+      <File path="C:\Luca\Infonove\Progetto1\config\fglprofile"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="*.db" name="Database" recursive="false" source="C:\Luca\Infonove\Progetto1\database">
+      <File path="C:\Luca\Infonove\Progetto1\database\mydatabase.db"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="*.png *.jpg *.ttf *.svg image2font.txt" name="Images" recursive="true" source="C:\Luca\Infonove\Progetto1\images">
+      <File path="C:\Luca\Infonove\Progetto1\images\image2font.txt"/>
+      <File path="C:\Luca\Infonove\Progetto1\images\informaticanove - Copia.jpg"/>
+      <File path="C:\Luca\Infonove\Progetto1\images\informaticanove.jpg"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="*.42?" name="libdbapp" recursive="false" source="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin">
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappCore.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappEvents.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappExt.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappFieldselectiondialog.42f"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappFormUI.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappPrintSettings.42f"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappReportCore.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappReportUI.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappSql.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappUI.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappWS.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappWSClient.42m"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\bin\libdbappWSCore.42m"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="*.42?" name="libgst" recursive="false" source="$(GSTLIBRARYDIR)\bin"/>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="*.4ad *.4st *.4tm *.4tb *.4sm *.42s *.iem" name="Resources" recursive="false" source="C:\Luca\Infonove\Progetto1\resources"/>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin" exclude="" include="mobile_dbapp.4ad dbapp.4st" name="Resources_dbapp" recursive="false" source="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\styles">
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\styles\dbapp.4st"/>
+      <File path="C:\Users\LucianoB\AppData\Roaming\FourJs\Genero Studio 4.00.03-202109231810\tpl\dbapp5.0\styles\mobile_dbapp.4ad"/>
+    </Directory>
+    <Directory destination="C:\Luca\Infonove\Progetto1\bin\webcomponents" exclude="" include="*" name="Webcomponents" recursive="true" source="C:\Luca\Infonove\Progetto1\webcomponents"/>
+  </Directories>
+</Package>

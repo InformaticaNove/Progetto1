@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Form name="libdbappPrintSettings.tmp" build="4.00.03" spacing="compact" text="Print Settings" width="55" height="19">
+  <ActionDefaultList>
+    <ActionDefault name="cancel" image=""/>
+    <ActionDefault name="print" text="Print">
+      <LStr text="Print"/>
+    </ActionDefault>
+    <ActionDefault name="export" text="Export">
+      <LStr text="Export"/>
+    </ActionDefault>
+    <ActionDefault name="applysettings" text="Apply">
+      <LStr text="Apply"/>
+    </ActionDefault>
+  </ActionDefaultList>
+  <LStr text="Print Settings"/>
+  <Grid name="grid2" width="55" height="19">
+    <Group name="reportgroup" text="Report List" gridChildrenInParent="1" posY="1" posX="1" gridWidth="54" gridHeight="10">
+      <LStr text="Report List"/>
+      <Table pageSize="5" name="reporttable" width="51" posY="1" posX="2" gridWidth="51" gridHeight="7" tabName="+tn_0">
+        <TableColumn name="formonly.r_rddfilename" colName="r_rddfilename" fieldId="0" sqlTabName="formonly" tabIndex="7" text="RDD Filename" hidden="1">
+          <Edit width="8"/>
+          <LStr text="RDD Filename"/>
+        </TableColumn>
+        <TableColumn name="formonly.r_reportname" colName="r_reportname" fieldId="1" sqlTabName="formonly" tabIndex="6" text="Name">
+          <Edit width="19" sizePolicy="dynamic"/>
+          <LStr text="Name"/>
+        </TableColumn>
+        <TableColumn name="formonly.r_reportfilename" colName="r_reportfilename" sqlType="VARCHAR" fieldId="2" sqlTabName="formonly" tabIndex="1" text="Report Path" hidden="1">
+          <Edit width="8"/>
+          <LStr text="Report Path"/>
+        </TableColumn>
+        <TableColumn name="formonly.r_fieldnames" colName="r_fieldnames" fieldId="3" sqlTabName="formonly" tabIndex="8" text="Field Names" hidden="1">
+          <Edit width="6"/>
+          <LStr text="Field Names"/>
+        </TableColumn>
+      </Table>
+      <HBox posY="8" posX="2" gridWidth="50">
+        <Button name="selectfields" width="10" tabIndex="5" text="Select Fields" comment="Select the fields to print. Used only in case that no .4rp template is specified">
+          <LStr text="Select Fields" comment="Select the fields to print. Used only in case that no .4rp template is specified"/>
+        </Button>
+        <SpacerItem/>
+        <Button name="preview" width="12" tabIndex="3" text="Preview">
+          <LStr text="Preview"/>
+        </Button>
+      </HBox>
+    </Group>
+    <Group name="printersgroup" text="Printer" gridChildrenInParent="1" posY="11" posX="1" gridWidth="53" gridHeight="4">
+      <LStr text="Printer"/>
+      <FormField name="formonly.l_printer" colName="l_printer" sqlType="CHAR" fieldId="4" sqlTabName="formonly" tabIndex="2" defaultValue="PrintOnDefaultPrinter" notNull="1" required="1">
+        <ComboBox width="48" initializer="libdbapp_report_server_printers_initializer" posY="2" posX="2" gridWidth="50">
+          <Item name="PrintOnDefaultPrinter" text="Print on Default Local Printer"/>
+          <Item name="ShowPrintDialog" text="Choose Local Printer..."/>
+        </ComboBox>
+      </FormField>
+    </Group>
+    <Group name="outputgroup" text="Export Format" gridChildrenInParent="1" posY="15" posX="1" gridWidth="53" gridHeight="3">
+      <LStr text="Export Format"/>
+      <Label name="label1" width="28" text="Select the output format used for export :" posY="1" posX="1" gridWidth="28">
+        <LStr text="Select the output format used for export :"/>
+      </Label>
+      <FormField name="formonly.l_output" colName="l_output" sqlType="CHAR" fieldId="5" sqlTabName="formonly" tabIndex="4" defaultValue="PDF" notNull="1" required="1">
+        <ComboBox width="10" posY="1" posX="40" gridWidth="12">
+          <Item name="PDF" text="PDF"/>
+          <Item name="HTML" text="HTML"/>
+          <Item name="XLS" text="XLS (Excel)"/>
+          <Item name="RTF" text="RTF (MS-Word)"/>
+        </ComboBox>
+      </FormField>
+    </Group>
+  </Grid>
+  <RecordView tabName="formonly">
+    <Link colName="r_rddfilename" fieldIdRef="0"/>
+    <Link colName="r_reportname" fieldIdRef="1"/>
+    <Link colName="r_reportfilename" fieldIdRef="2"/>
+    <Link colName="r_fieldnames" fieldIdRef="3"/>
+    <Link colName="l_printer" fieldIdRef="4"/>
+    <Link colName="l_output" fieldIdRef="5"/>
+  </RecordView>
+  <RecordView tabName="settings">
+    <Link colName="l_printer" fieldIdRef="4"/>
+    <Link colName="l_output" fieldIdRef="5"/>
+  </RecordView>
+  <RecordView tabName="report">
+    <Link colName="r_reportfilename" fieldIdRef="2"/>
+    <Link colName="r_reportname" fieldIdRef="1"/>
+    <Link colName="r_rddfilename" fieldIdRef="0"/>
+    <Link colName="r_fieldnames" fieldIdRef="3"/>
+  </RecordView>
+</Form>

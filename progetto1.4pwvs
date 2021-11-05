@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WorkspaceViewState version="1.0">
+  <ExpandedNodes>
+    <Node path=""/>
+    <Node path="/DatabaseMaintenance[group]"/>
+    <Node path="/Packages[group]"/>
+    <Node path="/Project[group]"/>
+    <Node path="/Project[group]/Applicationflow[library]"/>
+    <Node path="/Project[group]/src[library]"/>
+    <Node path="/Project[group]/src[library]/Entities[virtual-folder]"/>
+  </ExpandedNodes>
+  <OpenDocuments>
+    <Document container="true" filePath="appflow/appflow.4ba" locator="" module="mod-ba"/>
+    <Document container="true" filePath="database/mydatabase.4dbx" locator="" module="mod-db3"/>
+    <Document container="true" filePath="appflow/form.4fdm" locator="" module="mod-fd"/>
+    <Document container="true" filePath="appflow/form_menu.4fdc" locator="" module="mod-fd"/>
+    <Document container="true" filePath="appflow/default.4st" locator="5:2" module="mod-ce3">
+      <Data name="8" value="ANSI_X3.4-1968"/>
+    </Document>
+    <Document container="true" filePath="appflow/form.4gl" locator="1:1" module="mod-ce3">
+      <Data name="8" value="CP1252"/>
+    </Document>
+    <Document container="true" filePath="appflow/Main.4prg" locator="1:1" module="mod-ce3">
+      <Data name="8" value="UTF-8"/>
+    </Document>
+    <Document container="true" filePath="appflow/Main.4gl" locator="1:1" module="mod-ce3">
+      <Data name="8" value="CP1252"/>
+    </Document>
+    <Document container="true" filePath="//PCLUCIO/Condivisione/Luca/Movimat/nm4movimatgiacenza.4gl" locator="115:56" module="mod-ce3">
+      <Data name="8" value="CP1252"/>
+    </Document>
+  </OpenDocuments>
+  <CurrentDocument filePath="\\PCLUCIO\Condivisione\Luca\Movimat\nm4movimatgiacenza.4gl" module="mod-ce3"/>
+</WorkspaceViewState>

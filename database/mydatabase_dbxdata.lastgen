@@ -1,0 +1,656 @@
+#+ DB schema - Data Management (mydatabase)
+
+--------------------------------------------------------------------------------
+--This code is generated with the template dbapp5.0
+--Warning: Enter your changes within a <BLOCK> or <POINT> section, otherwise they will be lost.
+{<POINT Name="user.comments">} {</POINT>}
+
+--------------------------------------------------------------------------------
+--Importing modules
+IMPORT FGL libdbappCore
+IMPORT FGL libdbappSql
+
+IMPORT FGL mydatabase
+IMPORT FGL mydatabase_events
+IMPORT FGL mydatabase_dbxconstraints
+{<POINT Name="import">} {</POINT>}
+
+-- Database schema
+SCHEMA mydatabase
+
+--------------------------------------------------------------------------------
+--Functions
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_selectRowByKey">}
+#+ Select a row identified by the primary key in the "seqreg" table
+#+
+#+ @param p_key - Primary Key
+#+ @param p_lock - Indicate if a lock is used in order to prevent several users editing the same rows at the same time
+#+
+#+ @returnType INTEGER, LIKE seqreg.*
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_NOTFOUND, RECORD LIKE seqreg.*
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_selectRowByKey(p_key, p_lock)
+    DEFINE p_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE p_lock BOOLEAN
+    DEFINE l_data RECORD LIKE seqreg.*
+    DEFINE l_supportLock BOOLEAN
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_selectRowByKey.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    -- SQLite does not support the FOR UPDATE close in SELECT syntax
+    LET l_supportLock = (upshift(fgl_db_driver_type()) != "SQT")
+    {<POINT Name="fct.seqreg_pk_seqreg_selectRowByKey.init">} {</POINT>}
+    TRY
+        IF p_lock AND l_supportLock THEN
+            SELECT * INTO l_data.* FROM seqreg
+                WHERE @seqreg.sr_name = p_key.seqreg_sr_name
+            FOR UPDATE
+        ELSE
+            SELECT * INTO l_data.* FROM seqreg
+                WHERE @seqreg.sr_name = p_key.seqreg_sr_name
+        END IF
+        IF sqlca.sqlcode == NOTFOUND THEN
+            LET errNo = ERROR_NOTFOUND
+        END IF
+    CATCH
+        INITIALIZE l_data.* TO NULL
+        LET errNo = ERROR_FAILURE
+    END TRY
+    {<POINT Name="fct.seqreg_pk_seqreg_selectRowByKey.afterSelect">} {</POINT>}
+    RETURN errNo, l_data.*
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_selectRowByKey
+
+{<BLOCK Name="fct.seqreg_insertRowByKey">}
+#+ Insert a row in the "seqreg" table and return the primary key created
+#+
+#+ @param p_data - a row data LIKE seqreg.*
+#+
+#+ @returnType INTEGER, STRING, VARCHAR(30)
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message, seqreg.sr_name
+PRIVATE FUNCTION mydatabase_dbxdata_seqreg_insertRowByKey(p_data)
+    DEFINE p_data RECORD LIKE seqreg.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.seqreg_insertRowByKey.define">} {</POINT>}
+
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.seqreg_insertRowByKey.init">} {</POINT>}
+
+        IF mydatabase_events.m_DbxDataEvent_seqreg_BeforeInsertRowByKey IS NOT NULL THEN
+            CALL mydatabase_events.m_DbxDataEvent_seqreg_BeforeInsertRowByKey(p_data.*)
+                RETURNING errNo, errMsg, p_data.*
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            CALL mydatabase_dbxconstraints.mydatabase_dbxconstraints_seqreg_checkTableConstraints(FALSE, p_data.*) RETURNING errNo, errMsg
+        END IF
+        {<POINT Name="fct.seqreg_insertRowByKey.beforeInsert" Aliases="fct.seqreg_insertRowByKey.afterConstraints">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            TRY
+                INSERT INTO seqreg VALUES (p_data.*)
+            CATCH
+                LET errNo = ERROR_FAILURE
+            END TRY
+            IF errNo == ERROR_SUCCESS THEN
+                IF mydatabase_events.m_DbxDataEvent_seqreg_AfterInsertRowByKey IS NOT NULL THEN
+                    CALL mydatabase_events.m_DbxDataEvent_seqreg_AfterInsertRowByKey(p_data.*)
+                        RETURNING errNo, errMsg
+                END IF
+            END IF
+            {<POINT Name="fct.seqreg_insertRowByKey.afterInsert">} {</POINT>}
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo, errMsg, p_data.sr_name
+END FUNCTION
+{</BLOCK>} --fct.seqreg_insertRowByKey
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_insertRowByKey">}
+#+ Insert a row in the "seqreg" table and return the table keys
+#+
+#+ @param p_data - a row data LIKE seqreg.*
+#+
+#+ @returnType INTEGER, STRING, VARCHAR(30)
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message, seqreg.sr_name
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_insertRowByKey(p_data)
+    DEFINE p_data RECORD LIKE seqreg.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.seqreg_pk_seqreg_insertRowByKey.define">} {</POINT>}
+    {<POINT Name="fct.seqreg_pk_seqreg_insertRowByKey.init">} {</POINT>}
+
+    CALL mydatabase_dbxdata_seqreg_insertRowByKey(p_data.*) RETURNING errNo, errMsg, p_data.sr_name
+    RETURN errNo, errMsg, p_data.sr_name
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_insertRowByKey
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_updateRowByKey">}
+#+ Update a row identified by the primary key in the "seqreg" table
+#+
+#+ @param p_dataT0 - a row data LIKE seqreg.*
+#+ @param p_dataT1 - a row data LIKE seqreg.*
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_updateRowByKey(p_dataT0, p_dataT1)
+    DEFINE p_dataT0 RECORD LIKE seqreg.*
+    DEFINE p_dataT1 RECORD LIKE seqreg.*
+    DEFINE l_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.seqreg_pk_seqreg_updateRowByKey.define">} {</POINT>}
+    LET l_key.seqreg_sr_name = p_dataT0.sr_name
+    INITIALIZE errMsg TO NULL
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.seqreg_pk_seqreg_updateRowByKey.init">} {</POINT>}
+        TRY
+            LET errNo = mydatabase_dbxdata_seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess(p_dataT0.*, TRUE)
+            {<POINT Name="fct.seqreg_pk_seqreg_updateRowByKey.afterSelect">} {</POINT>}
+            IF errNo == ERROR_SUCCESS THEN
+                CALL mydatabase_dbxconstraints.mydatabase_dbxconstraints_seqreg_checkTableConstraints(TRUE, p_dataT1.*) RETURNING errNo, errMsg
+                {<POINT Name="fct.seqreg_pk_seqreg_updateRowByKey.beforeUpdate" Aliases="fct.seqreg_pk_seqreg_updateRowByKey.afterConstraints">} {</POINT>}
+                IF errNo == ERROR_SUCCESS THEN
+                    IF mydatabase_events.m_DbxDataEvent_seqreg_BeforeUpdateRowByKey IS NOT NULL THEN
+                        CALL mydatabase_events.m_DbxDataEvent_seqreg_BeforeUpdateRowByKey(p_dataT1.*)
+                            RETURNING errNo, errMsg
+                    END IF
+                    IF errNo == ERROR_SUCCESS THEN
+                        UPDATE seqreg
+                            SET seqreg.* = p_dataT1.*
+                            WHERE @seqreg.sr_name = l_key.seqreg_sr_name
+                    END IF
+                END IF
+            END IF
+        CATCH
+            LET errNo = ERROR_FAILURE
+        END TRY
+        IF errNo == ERROR_SUCCESS THEN
+            IF mydatabase_events.m_DbxDataEvent_seqreg_AfterUpdateRowByKey IS NOT NULL THEN
+                CALL mydatabase_events.m_DbxDataEvent_seqreg_AfterUpdateRowByKey(p_dataT1.*)
+                    RETURNING errNo, errMsg
+            END IF
+        END IF
+        {<POINT Name="fct.seqreg_pk_seqreg_updateRowByKey.afterUpdate">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_updateRowByKey
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_deleteRowByKey">}
+#+ Delete a row identified by the primary key in the "seqreg" table
+#+
+#+ @param p_key - Primary Key
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_DELETE_CASCADE_ROW_USED
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_deleteRowByKey(p_key)
+    DEFINE p_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKey.define">} {</POINT>}
+
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKey.init">} {</POINT>}
+        IF mydatabase_events.m_DbxDataEvent_seqreg_BeforeDeleteRowByKey IS NOT NULL THEN
+            CALL mydatabase_events.m_DbxDataEvent_seqreg_BeforeDeleteRowByKey(p_key.*)
+                RETURNING errNo
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            TRY
+                DELETE FROM seqreg
+                    WHERE @seqreg.sr_name = p_key.seqreg_sr_name
+            CATCH
+                LET errNo = ERROR_FAILURE
+            END TRY
+            IF errNo == ERROR_SUCCESS THEN
+                IF mydatabase_events.m_DbxDataEvent_seqreg_AfterDeleteRowByKey IS NOT NULL THEN
+                    CALL mydatabase_events.m_DbxDataEvent_seqreg_AfterDeleteRowByKey(p_key.*)
+                        RETURNING errNo
+                END IF
+            END IF
+        END IF
+        {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKey.afterDelete">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_deleteRowByKey
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess">}
+#+ Delete a row identified by the primary key in the "seqreg" table if the concurrent access is success
+#+
+#+ @param p_dataT0 - a row data LIKE seqreg.*
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE|ERROR_DELETE_CASCADE_ROW_USED
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess(p_dataT0)
+    DEFINE p_dataT0 RECORD LIKE seqreg.*
+    DEFINE l_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess.define">} {</POINT>}
+
+    LET l_key.seqreg_sr_name = p_dataT0.sr_name
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess.init">} {</POINT>}
+        LET errNo = mydatabase_dbxdata_seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess(p_dataT0.*, TRUE)
+        {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess.afterSelect">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = mydatabase_dbxdata_seqreg_pk_seqreg_deleteRowByKey(l_key.*)
+        END IF
+        {<POINT Name="fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess.afterDelete">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_deleteRowByKeyWithConcurrentAccess
+
+{<BLOCK Name="fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess">}
+#+ Check if a row identified by the primary key in the "seqreg" table has been modified or deleted
+#+
+#+ @param p_dataT0 - a row data LIKE seqreg.*
+#+ @param p_lock - Indicate if a lock is used in order to prevent several users editing the same rows at the same time
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess(p_dataT0, p_lock)
+    DEFINE p_dataT0 RECORD LIKE seqreg.*
+    DEFINE l_dataT2 RECORD LIKE seqreg.*
+    DEFINE l_key
+        RECORD
+            seqreg_sr_name LIKE seqreg.sr_name
+        END RECORD
+    DEFINE p_lock BOOLEAN
+    DEFINE errNo INTEGER
+    DEFINE errDiff INTEGER
+    {<POINT Name="fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess.define">} {</POINT>}
+
+    LET l_key.seqreg_sr_name = p_dataT0.sr_name
+    INITIALIZE l_dataT2.* TO NULL
+    LET errDiff = FALSE
+    {<POINT Name="fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess.init">} {</POINT>}
+    CALL mydatabase_dbxdata_seqreg_pk_seqreg_selectRowByKey(l_key.*, p_lock) RETURNING errNo, l_dataT2.*
+    CASE errNo
+        WHEN ERROR_SUCCESS
+            LET errDiff = (p_dataT0.* != l_dataT2.*)
+            {<POINT Name="fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess.afterSelect">} {</POINT>}
+            IF NOT errDiff THEN
+                LET errNo = ERROR_SUCCESS
+            ELSE
+                LET errNo = ERROR_CONCURRENT_ACCESS_FAILURE
+            END IF
+        WHEN ERROR_NOTFOUND
+            LET errNo = ERROR_CONCURRENT_ACCESS_NOTFOUND
+    END CASE
+    {<POINT Name="fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess.afterCheck">} {</POINT>}
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.seqreg_pk_seqreg_checkRowByKeyWithConcurrentAccess
+
+{<BLOCK Name="fct.seqreg_setDefaultValuesFromDBSchema">}
+#+ Set data with the default values coming from the DB schema
+#+
+PUBLIC FUNCTION mydatabase_dbxdata_seqreg_setDefaultValuesFromDBSchema()
+    DEFINE l_data RECORD LIKE seqreg.*
+    {<POINT Name="fct.seqreg_setDefaultValuesFromDBSchema.define">} {</POINT>}
+
+    INITIALIZE l_data.* TO NULL
+    {<POINT Name="fct.seqreg_setDefaultValuesFromDBSchema.init">} {</POINT>}
+    IF mydatabase_events.m_DbxDataEvent_seqreg_SetDefaultValues IS NOT NULL THEN
+        CALL mydatabase_events.m_DbxDataEvent_seqreg_SetDefaultValues(l_data.*)
+            RETURNING l_data.*
+    END IF
+    RETURN l_data.*
+END FUNCTION
+{</BLOCK>} --fct.seqreg_setDefaultValuesFromDBSchema
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_selectRowByKey">}
+#+ Select a row identified by the primary key in the "collegamento" table
+#+
+#+ @param p_key - Primary Key
+#+ @param p_lock - Indicate if a lock is used in order to prevent several users editing the same rows at the same time
+#+
+#+ @returnType INTEGER, LIKE collegamento.*
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_NOTFOUND, RECORD LIKE collegamento.*
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_selectRowByKey(p_key, p_lock)
+    DEFINE p_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE p_lock BOOLEAN
+    DEFINE l_data RECORD LIKE collegamento.*
+    DEFINE l_supportLock BOOLEAN
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_selectRowByKey.define">} {</POINT>}
+
+    LET errNo = ERROR_SUCCESS
+    -- SQLite does not support the FOR UPDATE close in SELECT syntax
+    LET l_supportLock = (upshift(fgl_db_driver_type()) != "SQT")
+    {<POINT Name="fct.collegamento_PK_collegamento_1_selectRowByKey.init">} {</POINT>}
+    TRY
+        IF p_lock AND l_supportLock THEN
+            SELECT * INTO l_data.* FROM collegamento
+                WHERE @collegamento.utente = p_key.collegamento_utente
+            FOR UPDATE
+        ELSE
+            SELECT * INTO l_data.* FROM collegamento
+                WHERE @collegamento.utente = p_key.collegamento_utente
+        END IF
+        IF sqlca.sqlcode == NOTFOUND THEN
+            LET errNo = ERROR_NOTFOUND
+        END IF
+    CATCH
+        INITIALIZE l_data.* TO NULL
+        LET errNo = ERROR_FAILURE
+    END TRY
+    {<POINT Name="fct.collegamento_PK_collegamento_1_selectRowByKey.afterSelect">} {</POINT>}
+    RETURN errNo, l_data.*
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_selectRowByKey
+
+{<BLOCK Name="fct.collegamento_insertRowByKey">}
+#+ Insert a row in the "collegamento" table and return the primary key created
+#+
+#+ @param p_data - a row data LIKE collegamento.*
+#+
+#+ @returnType INTEGER, STRING, VARCHAR(30)
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message, collegamento.utente
+PRIVATE FUNCTION mydatabase_dbxdata_collegamento_insertRowByKey(p_data)
+    DEFINE p_data RECORD LIKE collegamento.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.collegamento_insertRowByKey.define">} {</POINT>}
+
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.collegamento_insertRowByKey.init">} {</POINT>}
+
+        IF mydatabase_events.m_DbxDataEvent_collegamento_BeforeInsertRowByKey IS NOT NULL THEN
+            CALL mydatabase_events.m_DbxDataEvent_collegamento_BeforeInsertRowByKey(p_data.*)
+                RETURNING errNo, errMsg, p_data.*
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            CALL mydatabase_dbxconstraints.mydatabase_dbxconstraints_collegamento_checkTableConstraints(FALSE, p_data.*) RETURNING errNo, errMsg
+        END IF
+        {<POINT Name="fct.collegamento_insertRowByKey.beforeInsert" Aliases="fct.collegamento_insertRowByKey.afterConstraints">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            TRY
+                INSERT INTO collegamento VALUES (p_data.*)
+            CATCH
+                LET errNo = ERROR_FAILURE
+            END TRY
+            IF errNo == ERROR_SUCCESS THEN
+                IF mydatabase_events.m_DbxDataEvent_collegamento_AfterInsertRowByKey IS NOT NULL THEN
+                    CALL mydatabase_events.m_DbxDataEvent_collegamento_AfterInsertRowByKey(p_data.*)
+                        RETURNING errNo, errMsg
+                END IF
+            END IF
+            {<POINT Name="fct.collegamento_insertRowByKey.afterInsert">} {</POINT>}
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo, errMsg, p_data.utente
+END FUNCTION
+{</BLOCK>} --fct.collegamento_insertRowByKey
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_insertRowByKey">}
+#+ Insert a row in the "collegamento" table and return the table keys
+#+
+#+ @param p_data - a row data LIKE collegamento.*
+#+
+#+ @returnType INTEGER, STRING, VARCHAR(30)
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE, error message, collegamento.utente
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_insertRowByKey(p_data)
+    DEFINE p_data RECORD LIKE collegamento.*
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.collegamento_PK_collegamento_1_insertRowByKey.define">} {</POINT>}
+    {<POINT Name="fct.collegamento_PK_collegamento_1_insertRowByKey.init">} {</POINT>}
+
+    CALL mydatabase_dbxdata_collegamento_insertRowByKey(p_data.*) RETURNING errNo, errMsg, p_data.utente
+    RETURN errNo, errMsg, p_data.utente
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_insertRowByKey
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_updateRowByKey">}
+#+ Update a row identified by the primary key in the "collegamento" table
+#+
+#+ @param p_dataT0 - a row data LIKE collegamento.*
+#+ @param p_dataT1 - a row data LIKE collegamento.*
+#+
+#+ @returnType INTEGER, STRING
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE, error message
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_updateRowByKey(p_dataT0, p_dataT1)
+    DEFINE p_dataT0 RECORD LIKE collegamento.*
+    DEFINE p_dataT1 RECORD LIKE collegamento.*
+    DEFINE l_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE errNo INTEGER
+    DEFINE errMsg STRING
+    {<POINT Name="fct.collegamento_PK_collegamento_1_updateRowByKey.define">} {</POINT>}
+    LET l_key.collegamento_utente = p_dataT0.utente
+    INITIALIZE errMsg TO NULL
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.collegamento_PK_collegamento_1_updateRowByKey.init">} {</POINT>}
+        TRY
+            LET errNo = mydatabase_dbxdata_collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess(p_dataT0.*, TRUE)
+            {<POINT Name="fct.collegamento_PK_collegamento_1_updateRowByKey.afterSelect">} {</POINT>}
+            IF errNo == ERROR_SUCCESS THEN
+                CALL mydatabase_dbxconstraints.mydatabase_dbxconstraints_collegamento_checkTableConstraints(TRUE, p_dataT1.*) RETURNING errNo, errMsg
+                {<POINT Name="fct.collegamento_PK_collegamento_1_updateRowByKey.beforeUpdate" Aliases="fct.collegamento_PK_collegamento_1_updateRowByKey.afterConstraints">} {</POINT>}
+                IF errNo == ERROR_SUCCESS THEN
+                    IF mydatabase_events.m_DbxDataEvent_collegamento_BeforeUpdateRowByKey IS NOT NULL THEN
+                        CALL mydatabase_events.m_DbxDataEvent_collegamento_BeforeUpdateRowByKey(p_dataT1.*)
+                            RETURNING errNo, errMsg
+                    END IF
+                    IF errNo == ERROR_SUCCESS THEN
+                        UPDATE collegamento
+                            SET collegamento.* = p_dataT1.*
+                            WHERE @collegamento.utente = l_key.collegamento_utente
+                    END IF
+                END IF
+            END IF
+        CATCH
+            LET errNo = ERROR_FAILURE
+        END TRY
+        IF errNo == ERROR_SUCCESS THEN
+            IF mydatabase_events.m_DbxDataEvent_collegamento_AfterUpdateRowByKey IS NOT NULL THEN
+                CALL mydatabase_events.m_DbxDataEvent_collegamento_AfterUpdateRowByKey(p_dataT1.*)
+                    RETURNING errNo, errMsg
+            END IF
+        END IF
+        {<POINT Name="fct.collegamento_PK_collegamento_1_updateRowByKey.afterUpdate">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo, errMsg
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_updateRowByKey
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_deleteRowByKey">}
+#+ Delete a row identified by the primary key in the "collegamento" table
+#+
+#+ @param p_key - Primary Key
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_DELETE_CASCADE_ROW_USED
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_deleteRowByKey(p_key)
+    DEFINE p_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKey.define">} {</POINT>}
+
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKey.init">} {</POINT>}
+        IF mydatabase_events.m_DbxDataEvent_collegamento_BeforeDeleteRowByKey IS NOT NULL THEN
+            CALL mydatabase_events.m_DbxDataEvent_collegamento_BeforeDeleteRowByKey(p_key.*)
+                RETURNING errNo
+        END IF
+        IF errNo == ERROR_SUCCESS THEN
+            TRY
+                DELETE FROM collegamento
+                    WHERE @collegamento.utente = p_key.collegamento_utente
+            CATCH
+                LET errNo = ERROR_FAILURE
+            END TRY
+            IF errNo == ERROR_SUCCESS THEN
+                IF mydatabase_events.m_DbxDataEvent_collegamento_AfterDeleteRowByKey IS NOT NULL THEN
+                    CALL mydatabase_events.m_DbxDataEvent_collegamento_AfterDeleteRowByKey(p_key.*)
+                        RETURNING errNo
+                END IF
+            END IF
+        END IF
+        {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKey.afterDelete">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_deleteRowByKey
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess">}
+#+ Delete a row identified by the primary key in the "collegamento" table if the concurrent access is success
+#+
+#+ @param p_dataT0 - a row data LIKE collegamento.*
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE|ERROR_DELETE_CASCADE_ROW_USED
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess(p_dataT0)
+    DEFINE p_dataT0 RECORD LIKE collegamento.*
+    DEFINE l_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE errNo INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess.define">} {</POINT>}
+
+    LET l_key.collegamento_utente = p_dataT0.utente
+    LET errNo = libdbapp_begin_work()
+    IF errNo == ERROR_SUCCESS THEN
+        {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess.init">} {</POINT>}
+        LET errNo = mydatabase_dbxdata_collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess(p_dataT0.*, TRUE)
+        {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess.afterSelect">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = mydatabase_dbxdata_collegamento_PK_collegamento_1_deleteRowByKey(l_key.*)
+        END IF
+        {<POINT Name="fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess.afterDelete">} {</POINT>}
+        IF errNo == ERROR_SUCCESS THEN
+            LET errNo = libdbapp_commit_work()
+        ELSE
+            CALL libdbapp_rollback_work()
+        END IF
+    END IF
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_deleteRowByKeyWithConcurrentAccess
+
+{<BLOCK Name="fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess">}
+#+ Check if a row identified by the primary key in the "collegamento" table has been modified or deleted
+#+
+#+ @param p_dataT0 - a row data LIKE collegamento.*
+#+ @param p_lock - Indicate if a lock is used in order to prevent several users editing the same rows at the same time
+#+
+#+ @returnType INTEGER
+#+ @return     ERROR_SUCCESS|ERROR_FAILURE|ERROR_CONCURRENT_ACCESS_NOTFOUND|ERROR_CONCURRENT_ACCESS_FAILURE
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess(p_dataT0, p_lock)
+    DEFINE p_dataT0 RECORD LIKE collegamento.*
+    DEFINE l_dataT2 RECORD LIKE collegamento.*
+    DEFINE l_key
+        RECORD
+            collegamento_utente LIKE collegamento.utente
+        END RECORD
+    DEFINE p_lock BOOLEAN
+    DEFINE errNo INTEGER
+    DEFINE errDiff INTEGER
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess.define">} {</POINT>}
+
+    LET l_key.collegamento_utente = p_dataT0.utente
+    INITIALIZE l_dataT2.* TO NULL
+    LET errDiff = FALSE
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess.init">} {</POINT>}
+    CALL mydatabase_dbxdata_collegamento_PK_collegamento_1_selectRowByKey(l_key.*, p_lock) RETURNING errNo, l_dataT2.*
+    CASE errNo
+        WHEN ERROR_SUCCESS
+            LET errDiff = (p_dataT0.* != l_dataT2.*)
+            {<POINT Name="fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess.afterSelect">} {</POINT>}
+            IF NOT errDiff THEN
+                LET errNo = ERROR_SUCCESS
+            ELSE
+                LET errNo = ERROR_CONCURRENT_ACCESS_FAILURE
+            END IF
+        WHEN ERROR_NOTFOUND
+            LET errNo = ERROR_CONCURRENT_ACCESS_NOTFOUND
+    END CASE
+    {<POINT Name="fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess.afterCheck">} {</POINT>}
+    RETURN errNo
+END FUNCTION
+{</BLOCK>} --fct.collegamento_PK_collegamento_1_checkRowByKeyWithConcurrentAccess
+
+{<BLOCK Name="fct.collegamento_setDefaultValuesFromDBSchema">}
+#+ Set data with the default values coming from the DB schema
+#+
+PUBLIC FUNCTION mydatabase_dbxdata_collegamento_setDefaultValuesFromDBSchema()
+    DEFINE l_data RECORD LIKE collegamento.*
+    {<POINT Name="fct.collegamento_setDefaultValuesFromDBSchema.define">} {</POINT>}
+
+    INITIALIZE l_data.* TO NULL
+    {<POINT Name="fct.collegamento_setDefaultValuesFromDBSchema.init">} {</POINT>}
+    IF mydatabase_events.m_DbxDataEvent_collegamento_SetDefaultValues IS NOT NULL THEN
+        CALL mydatabase_events.m_DbxDataEvent_collegamento_SetDefaultValues(l_data.*)
+            RETURNING l_data.*
+    END IF
+    RETURN l_data.*
+END FUNCTION
+{</BLOCK>} --fct.collegamento_setDefaultValuesFromDBSchema
+
+--------------------------------------------------------------------------------
+--Add user functions
+{<POINT Name="user.functions">} {</POINT>}

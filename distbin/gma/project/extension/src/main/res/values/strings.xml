@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ FOURJS_START_COPYRIGHT(P,2013)
+ Property of Four Js*
+ (c) Copyright Four Js 2013, 2021. All Rights Reserved.
+ * Trademark of Four Js Development Tools Europe Ltd
+   in the United States and elsewhere
+ FOURJS_END_COPYRIGHT
+-->
+<resources>
+
+    <string name="app_name">GMA Extension Project</string>
+    <string name="run_function_call">Run Front-call</string>
+    <string name="run_activity">Run Activity</string>
+
+</resources>

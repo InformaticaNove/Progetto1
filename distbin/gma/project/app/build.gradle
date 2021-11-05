@@ -1,0 +1,114 @@
+/*
+ * FOURJS_START_COPYRIGHT(P,2013)
+ * Property of Four Js*
+ * (c) Copyright Four Js 2013, 2021. All Rights Reserved.
+ * * Trademark of Four Js Development Tools Europe Ltd
+ *   in the United States and elsewhere
+ * FOURJS_END_COPYRIGHT
+ */
+apply plugin: 'com.android.application'
+
+File filePath = new File(projectDir, "google-services.json")
+
+repositories {
+    flatDir {
+        dirs 'libs', 'libs/gma', project(":cordova-plugins").file('libs')
+    }
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        applicationId "com.example.app"
+    }
+
+    signingConfigs {
+        extension {
+            keyAlias 'scaffold'
+            keyPassword 'scaffold'
+            storeFile file(projectDir.getAbsolutePath() + File.separatorChar + "keystore.jks")
+            storePassword 'scaffold'
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.extension
+        }
+
+        release {
+            signingConfig signingConfigs.extension
+        }
+
+        unsignedDebug {
+            debuggable true
+            signingConfig null
+            matchingFallbacks = ['debug', 'release']
+        }
+
+        unsignedRelease {
+            signingConfig null
+            matchingFallbacks = ['debug', 'release']
+        }
+    }
+}
+
+dependencies {
+    // GMA libraries
+    debugImplementation name: "gma-debug", ext: "aar"
+    unsignedDebugImplementation name: "gma-debug", ext: "aar"
+
+    releaseImplementation name: "gma-release", ext: "aar"
+    unsignedReleaseImplementation name: "gma-release", ext: "aar"
+
+    debugImplementation name: "gma-cordova-debug", ext: "aar"
+    unsignedDebugImplementation name: "gma-cordova-debug", ext: "aar"
+
+    releaseImplementation name: "gma-cordova-release", ext: "aar"
+    unsignedReleaseImplementation name: "gma-cordova-release", ext: "aar"
+
+    debugImplementation name: "gma-extension-debug", ext: "aar"
+    unsignedDebugImplementation name: "gma-extension-debug", ext: "aar"
+
+    releaseImplementation name: "gma-extension-release", ext: "aar"
+    unsignedReleaseImplementation name: "gma-extension-release", ext: "aar"
+
+    debugImplementation name: "gma-fglgws-debug", ext: "aar"
+    unsignedDebugImplementation name: "gma-fglgws-debug", ext: "aar"
+
+    releaseImplementation name: "gma-fglgws-release", ext: "aar"
+    unsignedReleaseImplementation name: "gma-fglgws-release", ext: "aar"
+
+    implementation   project(':extension')
+    implementation   project(':cordova-plugins')
+
+    // Android libraries
+
+    api "androidx.legacy:legacy-support-v4:1.0.0"
+    api "androidx.appcompat:appcompat:1.0.2"
+    api "com.google.android.material:material:1.0.0"
+    api "androidx.cardview:cardview:1.0.0"
+    api "androidx.recyclerview:recyclerview:1.0.0"
+    api "androidx.exifinterface:exifinterface:1.0.0"
+    api "androidx.preference:preference:1.0.0"
+    api "com.google.firebase:firebase-core:17.0.1"
+    api "com.google.firebase:firebase-messaging:19.0.1"
+    // External libraries
+
+    api "org.apache.commons:commons-lang3:3.7"
+    api "org.apache.commons:commons-text:1.4"
+    api "com.mikepenz:iconics-core:3.0.4"
+    api "com.mikepenz:material-design-iconic-typeface:2.2.0.4"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+}
+
+if(filePath.exists()){
+ apply plugin: 'com.google.gms.google-services'
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AG version="10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gst/4.00/agmodel.xsd">
+  <Database name="mydatabase" schemaFile="C:\Luca\Infonove\Progetto1\database\mydatabase.4dbx">
+    <Table name="seqreg">
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="sr_name" notNull="1">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="sr_name"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="INTEGER" defaultValue="" fglDatatype="INTEGER" fglLength="4" length="11" name="sr_last" notNull="1">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="sr_last"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBConstraint constraint="primaryKey" name="pk_seqreg">
+        <Column name="sr_name"/>
+      </DBConstraint>
+      <DBIndex name="pk_seqreg" primary="1" unique="0">
+        <Column name="sr_name"/>
+      </DBIndex>
+    </Table>
+    <Table name="collegamento">
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="utente" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="utente"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="password" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="password"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="server" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="server"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="INTEGER" defaultValue="" fglDatatype="INTEGER" fglLength="4" length="11" name="porta" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="porta"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="database" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="database"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="modulo" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="modulo"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBConstraint constraint="primaryKey" name="PK_collegamento_1">
+        <Column name="utente"/>
+      </DBConstraint>
+      <DBIndex name="PK_collegamento_1" primary="1" unique="0">
+        <Column name="utente"/>
+      </DBIndex>
+    </Table>
+  </Database>
+</AG>

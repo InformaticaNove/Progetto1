@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ FOURJS_START_COPYRIGHT(P,2013)
+ Property of Four Js*
+ (c) Copyright Four Js 2013, 2021. All Rights Reserved.
+ * Trademark of Four Js Development Tools Europe Ltd
+   in the United States and elsewhere
+ FOURJS_END_COPYRIGHT
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gma.extension">
+
+    <application>
+        <!--Remove it when you finished to implement your extension implementation-->
+        <activity
+            android:name="com.gma.extension.activities.TestExtensionActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/ExtensionTheme"/>
+
+        <!--Add android components here-->
+    </application>
+</manifest>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm databaseName="mydatabase" fileVersion="40003" gstVersion="40003" name="managedform" uid="{b971e095-175c-4980-bb84-079676ebe4bd}">
+  <AGSettings>
+    <DynamicProperties version="4">
+      <DynamicProperty description="Allow adding items" initialValue="true" isDefaultInherited="false" isHidden="false" label="canAdd" name="canAdd" readOnly="false" type="BOOLEAN"/>
+      <DynamicProperty description="Allow deleting items" initialValue="true" isDefaultInherited="false" isHidden="false" label="canDelete" name="canDelete" readOnly="false" type="BOOLEAN"/>
+      <DynamicProperty description="Allow displaying items" initialValue="true" isDefaultInherited="false" isHidden="false" label="canDisplay" name="canDisplay" readOnly="false" type="BOOLEAN"/>
+      <DynamicProperty description="Allow the empty mode" initialValue="true" isDefaultInherited="false" isHidden="false" label="canEmpty" name="canEmpty" readOnly="false" type="BOOLEAN"/>
+      <DynamicProperty description="Allow modifying existing items" initialValue="true" isDefaultInherited="false" isHidden="false" label="canModify" name="canModify" readOnly="false" type="BOOLEAN"/>
+      <DynamicProperty description="Allow search using Query By Example" initialValue="true" isDefaultInherited="false" isHidden="false" label="canSearch" name="canSearch" readOnly="false" type="BOOLEAN"/>
+      <DynamicPropertyGroup collapsed="false" description="Put user code to customize the application" label="Data Events" name="DialogDataEvents" properties=""/>
+      <DynamicPropertyGroup collapsed="false" description="Put user code to customize the application" label="Dialog Events" name="DialogEvents" properties=""/>
+      <DynamicPropertyGroup collapsed="false" description="Put user code to customize the application" label="Code Files" name="codeFiles" properties=""/>
+      <DynamicPropertyGroup collapsed="false" description="Put user code to customize the application" label="Code Links" name="codeLinks" properties=""/>
+      <DynamicPropertyGroup collapsed="false" description="Functionality properties group" label="Functionality" name="functionality" properties="canDisplay;canAdd;canModify;canDelete;canSearch;canEmpty"/>
+    </DynamicProperties>
+    <NodeInfos version="1">
+      <NodeInfo mimeType="BR/Record" properties="canDisplay;canAdd;canModify;canDelete;canSearch;canEmpty"/>
+    </NodeInfos>
+  </AGSettings>
+  <Record active="true" masterTable="collegamento" name="record1" uid="{ffdcc63b-46f8-4546-bfa4-0fdc2eabc0a1}">
+    <RecordField colName="utente" fieldIdRef="1" fieldType="TABLE_COLUMN" name="collegamento.utente" sqlTabName="collegamento" uid="{e84466ec-22a6-4155-8b16-451e9f330a15}"/>
+    <RecordField colName="password" fieldIdRef="2" fieldType="TABLE_COLUMN" name="collegamento.password" sqlTabName="collegamento" uid="{3337b645-00f7-49bc-8c30-8d5d07b48e14}"/>
+    <RecordField colName="server" fieldIdRef="3" fieldType="TABLE_COLUMN" name="collegamento.server" sqlTabName="collegamento" uid="{c6574482-3b2a-467e-979a-bb2164e58f57}"/>
+    <RecordField colName="porta" fieldIdRef="4" fieldType="TABLE_COLUMN" name="collegamento.porta" sqlTabName="collegamento" uid="{a44c5380-c7f4-41e3-9bc3-d89e8976fe21}"/>
+    <RecordField colName="database" fieldIdRef="5" fieldType="TABLE_COLUMN" name="collegamento.database" sqlTabName="collegamento" uid="{edf52c1d-d3de-4bae-942d-14fb27cf2911}"/>
+    <RecordField colName="modulo" fieldIdRef="6" fieldType="TABLE_COLUMN" name="collegamento.modulo" sqlTabName="collegamento" uid="{6b959398-00b5-4e6e-a8b2-af03d86edb08}"/>
+  </Record>
+  <Form gridHeight="20" gridWidth="83" name="form" spacing="normal" text="Autenticazione">
+    <Grid gridHeight="16" gridWidth="81" name="mydatabase1" posX="1" posY="1">
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_utente_label1" posX="19" posY="4" text="Utente">
+        <Initializer text="dbschema:collegamento.utente/@label"/>
+      </Label>
+      <Edit colName="utente" fieldId="1" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="30" name="collegamento.utente" posX="28" posY="4" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_password_label1" posX="19" posY="5" text="Password">
+        <Initializer text="dbschema:collegamento.password/@label"/>
+      </Label>
+      <Edit colName="password" fieldId="2" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="30" name="collegamento.password" posX="28" posY="5" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_server_label1" posX="19" posY="6" text="Server">
+        <Initializer text="dbschema:collegamento.server/@label"/>
+      </Label>
+      <Edit colName="server" fieldId="3" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="30" name="collegamento.server" posX="28" posY="6" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_porta_label1" posX="19" posY="7" text="Porta">
+        <Initializer text="dbschema:collegamento.porta/@label"/>
+      </Label>
+      <Edit colName="porta" fieldId="4" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="6" name="collegamento.porta" posX="28" posY="7" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_database_label1" posX="19" posY="8" text="Database">
+        <Initializer text="dbschema:collegamento.database/@label"/>
+      </Label>
+      <Edit colName="database" fieldId="5" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="30" name="collegamento.database" posX="28" posY="8" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+      <Label gridHeight="1" gridWidth="8" justify="left" name="collegamento_modulo_label1" posX="19" posY="9" text="Modulo">
+        <Initializer text="dbschema:collegamento.modulo/@label"/>
+      </Label>
+      <Edit colName="modulo" fieldId="6" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="30" name="collegamento.modulo" posX="28" posY="9" scroll="true" sqlTabName="collegamento" tabIndex="-1" widget="Edit">
+        <Initializer title="dbschema:$(sqlTabName).$(colName)/@label"/>
+      </Edit>
+    </Grid>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewBmAGYAZABjAGMANgAzAGIALQA0ADYAZgA4AC0ANAA1ADQANgAtAGIAZgBhADQALQAwAGYAZABjADIAZQBhAGIAYwAwAGEAMQB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

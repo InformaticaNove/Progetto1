@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WorkspaceDatabase fileContentsEncoding="fglutf8" version="3.0">
+<File n="databaseMaintenance/mydatabase_sqt_x.4gl" s="1" ts="20210617163712153"/>
+<File n="database/mydatabase.4gl" s="1" ts="20211001143609671"/>
+<File n="database/mydatabase_common.4gl" s="1" ts="20211027143622859"/>
+<File n="database/mydatabase_dbxconstraints.4gl" s="1" ts="20211027143622879"/>
+<File n="database/mydatabase_dbxdata.4gl" s="1" ts="20211027143622843"/>
+<File n="database/mydatabase_events.4gl" s="1" ts="20211027143622894"/>
+<File n="appflow/form.4gl" s="1" ts="20211001143609687">
+<Dep t="database/mydatabase.4dbx"/>
+</File>
+<File n="appflow/form_common.4gl" s="1" ts="20211027143622887"/>
+<File n="appflow/form_events.4gl" s="1" ts="20211027143622883"/>
+<File n="appflow/form_menu.4gl" s="1" ts="20211001143332716"/>
+<File n="appflow/form_menu_common.4gl" s="1" ts="20211027143622859"/>
+<File n="appflow/form_menu_custom.4gl" s="1" ts="20211027143622843"/>
+<File n="appflow/form_menu_events.4gl" s="1" ts="20211027143622874"/>
+<File n="appflow/form_ui.4gl" s="1" ts="20211027143622843">
+<Dep t="database/mydatabase.4dbx"/>
+</File>
+<File n="appflow/form_uidata.4gl" s="1" ts="20211027143622859">
+<Dep t="database/mydatabase.4dbx"/>
+</File>
+<File n="appflow/form_uidialog.4gl" s="1" ts="20211027143622827"/>
+<File n="appflow/form_uidialogdata.4gl" s="1" ts="20211027143622843"/>
+<File n="appflow/Main.4gl" s="1" ts="20211001143609718">
+<Dep t="database/mydatabase.4dbx"/>
+</File>
+<File n="appflow/Main_events.4gl" s="1" ts="20211027143622890"/>
+<File n="appflow/Main_prg.4gl" s="1" ts="20211027143622859">
+<Dep t="appflow/form.4fdm"/>
+</File>
+</WorkspaceDatabase>

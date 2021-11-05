@@ -1,0 +1,40 @@
+{<CODEFILE version="1.0" encoding="fglutf8">}
+{<SOURCEFILE name="Main_prg.4gl" hash="u+U5tNJEbmv5CXK0dtbivw==">}
+{<USERCODE>}
+{<BLOCK Name="fct.install" Status="MODIFIED">}
+#+ Copy read-only files to the writable document area
+PUBLIC FUNCTION Main_install()
+    DEFINE src STRING
+    DEFINE dest STRING
+    DEFINE dbFilename STRING
+    DEFINE dbDestFilename STRING
+    DEFINE ret BOOLEAN
+    {<POINT Name="fct.install.define">} {</POINT>}
+    {<POINT Name="fct.install.init">} {</POINT>}
+
+    --Copy read-only database file (nothing to do for GMa)
+    IF ui.Interface.getFrontEndName() == "GMI" AND base.Application.isMobile() THEN
+        LET dbFilename = base.Application.getResourceEntry("dbi.database.mydatabase.source")
+        IF dbFilename IS NULL THEN
+            LET dbFilename = "mydatabase.4dbx"
+            LET dbDestFilename = "mydatabase"
+        ELSE
+            LET dbDestFilename = dbFilename
+        END if
+        LET dest = os.Path.fullPath(os.Path.join(os.Path.pwd(), dbDestFilename))
+        IF NOT os.Path.exists(dest) THEN
+            --Copy to writable directory
+            LET src = os.Path.fullPath(os.Path.join(base.Application.getProgramDir(), dbFilename))
+            CALL os.Path.copy(src, dest) RETURNING ret
+        END IF
+    END IF
+    {<POINT Name="fct.install.user">} {</POINT>}
+END FUNCTION
+{</BLOCK>}
+
+{</USERCODE>}
+{<LOSTCODE>}
+
+{</LOSTCODE>}
+{</SOURCEFILE>}
+{</CODEFILE>}

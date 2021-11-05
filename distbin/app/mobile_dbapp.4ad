@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ANSI_X3.4-1968"?>
+<ActionDefaultList>
+  <ActionDefault name="exit"   text="Exit"/>
+  <ActionDefault name="update" text="Modify" image="edit"/>
+  <ActionDefault name="delete" text="Delete"/>
+  <ActionDefault name="query"  text="Search" image="find"/>
+  <ActionDefault name="view"   text="View"/>
+  <ActionDefault name="zoom"   text="Zoom" image="zoom"/>
+  <ActionDefault name="accept" text="Accept"/>
+  <ActionDefault name="cancel" text="Cancel"/>
+
+  <ActionDefault name="find"      text="Find"/>
+  <ActionDefault name="findnext"  text="Find Next" image="findnext"/>
+
+  <ActionDefault name="dialogtouched" defaultView="no" validate="no"/>
+  <ActionDefault name="close"         defaultView="no"/>
+
+  <ActionDefault name="firstrow" text="First"         image="gobegin"/>
+  <ActionDefault name="prevpage" text="Previous Page" image="rewind"/>
+  <ActionDefault name="prevrow"  text="Previous"      image="gorev"/>
+  <ActionDefault name="nextrow"  text="Next"          image="goforw"/>
+
+  <ActionDefault name="insert" text="Insert"/>
+  <ActionDefault name="new"    text="New"/>
+  <ActionDefault name="append" text="Append"/>
+</ActionDefaultList>

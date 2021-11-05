@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<APPLICATION xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <EXECUTION>
+        <PATH>./</PATH>
+        <MODULE>Main.42m</MODULE>
+        <PARAMETERS/>
+    </EXECUTION>
+</APPLICATION>
+

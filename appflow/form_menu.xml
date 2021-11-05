@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AG businessApplicationFile="C:\Luca\Infonove\Progetto1\appflow\appflow.4ba" version="10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gst/4.00/agmodel.xsd">
+  <File dir="C:\Luca\Infonove\Progetto1\appflow" filename="form_menu.4fdc" locator="/Item/form_menu" name="form_menu" type="CustomForm">
+    <Module locator="/managedform"/>
+  </File>
+</AG>

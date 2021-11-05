@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AG businessApplicationFile="C:\Luca\Infonove\Progetto1\appflow\appflow.4ba" version="10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gst/4.00/agmodel.xsd">
+  <File dir="C:\Luca\Infonove\Progetto1\appflow" filename="form.4fdm" locator="/Item/form" name="form" type="Form">
+    <DynamicProperties>
+      <DynamicProperty name="canExport" value="true"/>
+      <DynamicProperty name="formDefaultMode" value="DISPLAY"/>
+      <DynamicProperty name="formOpenMode" value="DISPLAY"/>
+      <DynamicProperty name="formTransitionAddCancel" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="formTransitionAddClose" value="ExitForm"/>
+      <DynamicProperty name="formTransitionAddExit" value="ExitApp"/>
+      <DynamicProperty name="formTransitionAddOk" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="formTransitionDisplayCancel" value="ExitForm"/>
+      <DynamicProperty name="formTransitionDisplayClose" value="ExitForm"/>
+      <DynamicProperty name="formTransitionDisplayExit" value="ExitApp"/>
+      <DynamicProperty name="formTransitionDisplayOk" value="ExitForm"/>
+      <DynamicProperty name="formTransitionModifyCancel" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="formTransitionModifyClose" value="ExitForm"/>
+      <DynamicProperty name="formTransitionModifyExit" value="ExitApp"/>
+      <DynamicProperty name="formTransitionModifyOk" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="formTransitionSearchCancel" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="formTransitionSearchClose" value="ExitForm"/>
+      <DynamicProperty name="formTransitionSearchExit" value="ExitApp"/>
+      <DynamicProperty name="formTransitionSearchOk" value="ReturnToDefaultMode"/>
+      <DynamicProperty name="quickHTML" value="true"/>
+      <DynamicProperty name="quickPDF" value="true"/>
+      <DynamicProperty name="quickPreview" value="true"/>
+      <DynamicProperty name="quickPrint" value="true"/>
+      <DynamicProperty name="quickRTF" value="true"/>
+      <DynamicProperty name="quickXLS" value="true"/>
+    </DynamicProperties>
+    <ModuleRelation destination="form" locator="/Relation/Relation1" source="Main" type="Relation">
+      <DynamicProperties>
+        <DynamicProperty name="action" value=""/>
+        <DynamicProperty name="dataRefresh" value="Current Row"/>
+        <DynamicProperty name="defaultMode" value=""/>
+        <DynamicProperty name="disableAdd" value="false"/>
+        <DynamicProperty name="disableDelete" value="false"/>
+        <DynamicProperty name="disableDisplay" value="false"/>
+        <DynamicProperty name="disableEmpty" value="false"/>
+        <DynamicProperty name="disableModify" value="false"/>
+        <DynamicProperty name="disableSearch" value="false"/>
+        <DynamicProperty name="filterDstField"/>
+        <DynamicProperty name="filterSrcField"/>
+        <DynamicProperty name="openMode" value=""/>
+        <DynamicProperty name="relationTransitionAddCancel" value=""/>
+        <DynamicProperty name="relationTransitionAddClose" value=""/>
+        <DynamicProperty name="relationTransitionAddExit" value=""/>
+        <DynamicProperty name="relationTransitionAddOk" value=""/>
+        <DynamicProperty name="relationTransitionDisplayCancel" value=""/>
+        <DynamicProperty name="relationTransitionDisplayClose" value=""/>
+        <DynamicProperty name="relationTransitionDisplayExit" value=""/>
+        <DynamicProperty name="relationTransitionDisplayOk" value=""/>
+        <DynamicProperty name="relationTransitionModifyCancel" value=""/>
+        <DynamicProperty name="relationTransitionModifyClose" value=""/>
+        <DynamicProperty name="relationTransitionModifyExit" value=""/>
+        <DynamicProperty name="relationTransitionModifyOk" value=""/>
+        <DynamicProperty name="relationTransitionSearchCancel" value=""/>
+        <DynamicProperty name="relationTransitionSearchClose" value=""/>
+        <DynamicProperty name="relationTransitionSearchExit" value=""/>
+        <DynamicProperty name="relationTransitionSearchOk" value=""/>
+        <DynamicProperty name="rowbound" value="false"/>
+        <DynamicProperty name="srcField"/>
+        <DynamicProperty name="srcRecord" value=""/>
+      </DynamicProperties>
+    </ModuleRelation>
+    <Module databaseName="mydatabase" locator="/managedform">
+      <Record alias="collegamento" container="Grid" locator="/managedform/record1" name="record1" size="1" table="collegamento">
+        <DynamicProperties>
+          <DynamicProperty name="canDisplay" value="true"/>
+          <DynamicProperty name="canAdd" value="true"/>
+          <DynamicProperty name="canModify" value="true"/>
+          <DynamicProperty name="canDelete" value="true"/>
+          <DynamicProperty name="canSearch" value="true"/>
+          <DynamicProperty name="canEmpty" value="true"/>
+        </DynamicProperties>
+        <Fields>
+          <Field alias="collegamento" column="utente" defaultValue="" isKey="1" locator="/managedform/record1/collegamento.utente" name="collegamento.utente" table="collegamento" widget="Edit"/>
+          <Field alias="collegamento" column="password" defaultValue="" locator="/managedform/record1/collegamento.password" name="collegamento.password" table="collegamento" widget="Edit"/>
+          <Field alias="collegamento" column="server" defaultValue="" locator="/managedform/record1/collegamento.server" name="collegamento.server" table="collegamento" widget="Edit"/>
+          <Field alias="collegamento" column="porta" defaultValue="" locator="/managedform/record1/collegamento.porta" name="collegamento.porta" table="collegamento" widget="Edit"/>
+          <Field alias="collegamento" column="database" defaultValue="" locator="/managedform/record1/collegamento.database" name="collegamento.database" table="collegamento" widget="Edit"/>
+          <Field alias="collegamento" column="modulo" defaultValue="" locator="/managedform/record1/collegamento.modulo" name="collegamento.modulo" table="collegamento" widget="Edit"/>
+        </Fields>
+        <UniqueKey>
+          <Field alias="collegamento" column="utente" name="collegamento.utente" table="collegamento"/>
+        </UniqueKey>
+      </Record>
+    </Module>
+  </File>
+  <Database name="mydatabase" schemaFile="C:\Luca\Infonove\Progetto1\database\mydatabase.4dbx">
+    <Table name="collegamento">
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="utente" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="utente"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="password" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="password"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="server" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="server"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="INTEGER" defaultValue="" fglDatatype="INTEGER" fglLength="4" length="11" name="porta" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="porta"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="database" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="database"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBColumn datatype="VARCHAR(30)" defaultValue="" fglDatatype="VARCHAR2(30)" fglLength="30" length="30" name="modulo" notNull="0">
+        <DynamicProperties>
+          <DynamicProperty name="widget" value="Edit"/>
+          <DynamicProperty name="label" value="modulo"/>
+        </DynamicProperties>
+      </DBColumn>
+      <DBConstraint constraint="primaryKey" name="PK_collegamento_1">
+        <Column name="utente"/>
+      </DBConstraint>
+      <DBIndex name="PK_collegamento_1" primary="1" unique="0">
+        <Column name="utente"/>
+      </DBIndex>
+    </Table>
+  </Database>
+</AG>

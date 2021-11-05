@@ -1,0 +1,44 @@
+/*
+ * FOURJS_START_COPYRIGHT(P,2013)
+ * Property of Four Js*
+ * (c) Copyright Four Js 2013, 2021. All Rights Reserved.
+ * * Trademark of Four Js Development Tools Europe Ltd
+ *   in the United States and elsewhere
+ * FOURJS_END_COPYRIGHT
+ */
+
+apply plugin: 'com.android.library'
+
+repositories {
+    flatDir {
+        dirs 'libs', project(":app").file('libs/gma')
+    }
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    debugCompileOnly name: "gma-cordova-debug", ext: "aar"
+    releaseCompileOnly name: "gma-cordova-release", ext: "aar"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}

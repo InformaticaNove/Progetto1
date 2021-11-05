@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ FOURJS_START_COPYRIGHT(P,2013)
+ Property of Four Js*
+ (c) Copyright Four Js 2013, 2021. All Rights Reserved.
+ * Trademark of Four Js Development Tools Europe Ltd
+   in the United States and elsewhere
+ FOURJS_END_COPYRIGHT
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+            package="com.example.app">
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <application>
+            <activity
+                    android:name="com.fourjs.gma.monitor.Startup">
+                    <intent-filter>
+                            <action android:name="android.intent.action.MAIN"/>
+                            <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+            </activity>
+
+            <provider
+                    android:name="androidx.core.content.FileProvider"
+                    android:authorities="com.example.app.provider"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                    <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
+            </provider>
+    </application>
+</manifest>

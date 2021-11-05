@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Form name="form_menu.tmp" build="4.00.03" spacing="normal" text="MENU" width="42" height="25">
+  <LStr text="MENU"/>
+  <Grid name="grid1" width="42" height="25">
+    <Group name="group2" text="" posY="0" posX="1" gridWidth="41" gridHeight="7">
+      <LStr text=""/>
+      <Image name="informaticanove" width="0px" height="0ln" tag="" image="informaticanove.jpg" autoScale="1" stretch="both" sizePolicy="initial" style="immagine" posY="1" posX="1" gridWidth="39" gridHeight="5"/>
+    </Group>
+    <Group name="group1" text="" style="group1" posY="8" posX="12" gridWidth="21" gridHeight="13">
+      <LStr text=""/>
+      <Button name="conferimenti" width="16" height="2" text="Conferimenti" fontPitch="fixed" style="bottoni" posY="1" posX="2" gridWidth="16" gridHeight="2" tabIndex="1">
+        <LStr text="Conferimenti"/>
+      </Button>
+      <Button name="btsitcontratti" width="16" height="2" text="Situazione Contratti" fontPitch="fixed" style="bottoni" posY="4" posX="2" gridWidth="16" gridHeight="2" tabIndex="2">
+        <LStr text="Situazione Contratti"/>
+      </Button>
+      <Button name="btsitmagazzino" width="16" height="2" text="Situazione Magazzino" fontPitch="fixed" style="bottoni" posY="7" posX="2" gridWidth="16" gridHeight="2" tabIndex="3">
+        <LStr text="Situazione Magazzino"/>
+      </Button>
+      <Button name="btuscita" width="16" height="2" text="Uscita" fontPitch="fixed" style="bottoni" posY="10" posX="2" gridWidth="16" gridHeight="2" tabIndex="4">
+        <LStr text="Uscita"/>
+      </Button>
+    </Group>
+  </Grid>
+</Form>

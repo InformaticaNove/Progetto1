@@ -1,0 +1,19 @@
+SELECT *
+            INTO p_Verifica.*
+            FROM collegamento
+            WHERE ((utente = p_Login.utente) AND (password = p_Login.password) AND (server = p_Login.server) 
+                    AND (porta = p_Login.porta) AND (database = p_Login.database) AND (modulo = p_Login.modulo))
+
+        IF (p_Verifica.* = p_Login.*) THEN
+            CALL fgl_winMessage("Info","Autenticazione riuscita","Ok") 
+        ELSE
+            INSERT 
+                INTO collegamento
+                VALUES( p_Login.* )
+            IF ( status != 0 ) THEN
+                CALL fgl_winMessage("Info","Errore inserimento dati.","Ok")
+                LET stop_n = TRUE
+            ELSE
+                CALL fgl_winMessage("Info","Inserimento riuscito","Ok") 
+            END IF 
+        END IF 
